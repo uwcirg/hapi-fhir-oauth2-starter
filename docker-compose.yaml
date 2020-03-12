@@ -13,7 +13,7 @@ services:
      - db
 
   db:
-    image: postgres:${POSTGRES_VERSION:-11}
+    image: postgres:${POSTGRES_VERSION:-12}
     ports:
       - target: 5432
     environment:
