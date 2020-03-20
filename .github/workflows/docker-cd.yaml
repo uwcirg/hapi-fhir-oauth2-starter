@@ -1,0 +1,17 @@
+---
+name: Publish Docker
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      # todo: pin to hash
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: uwcirg/hapi-fhir-oauth2-starter/hapi-fhir-jpa
+        # https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
+        registry: docker.pkg.github.com
