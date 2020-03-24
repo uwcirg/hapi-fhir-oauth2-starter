@@ -129,6 +129,9 @@ public class FhirServerConfigCommon {
 
     retVal.setFilterParameterEnabled(HapiProperties.getFilterSearchEnabled());
 
+    // Allow numeric IDs
+    retVal.setResourceClientIdStrategy(DaoConfig.ClientIdStrategyEnum.ANY);
+
     return retVal;
   }
 
