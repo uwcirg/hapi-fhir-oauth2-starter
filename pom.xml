@@ -14,7 +14,8 @@
         <version>4.2.0</version>
     </parent>
 
-    <artifactId>hapi-fhir-jpaserver-starter</artifactId>
+    <groupId>edu.washington.cirg</groupId>
+    <artifactId>hapi-fhir-oauth2-starter</artifactId>
 
     <prerequisites>
         <maven>3.5.0</maven>
@@ -254,7 +255,7 @@
 
     <packaging>war</packaging>
 
-    <name>HAPI FHIR JPA Server - Starter Project</name>
+    <name>UW CIRG HAPI FHIR JPA Server </name>
 
     <repositories>
         <repository>
@@ -300,6 +301,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+                    <attachClasses>true</attachClasses>
                     <archive>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>

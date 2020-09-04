@@ -1,1 +1,1 @@
-docker build --tag hapiproject/hapi:latest --tag hapiproject/hapi:4.1 -m 4g .
+docker build --tag uwcirg/hapi-fhir-oauth2-starter:latest -m 4g .

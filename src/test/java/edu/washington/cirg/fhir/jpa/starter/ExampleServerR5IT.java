@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter;
+package edu.washington.cirg.fhir.jpa.starter;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.api.CacheControlDirective;
@@ -8,16 +8,15 @@ import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.client.api.ServerValidationModeEnum;
 import ca.uhn.fhir.rest.client.interceptor.LoggingInterceptor;
 import ca.uhn.fhir.test.utilities.JettyUtil;
+import edu.washington.cirg.fhir.jpa.starter.HapiProperties;
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.hl7.fhir.instance.model.api.IIdType;
-import org.hl7.fhir.r4.model.Bundle;
-import org.hl7.fhir.r4.model.Observation;
-import org.hl7.fhir.r4.model.Patient;
-import org.hl7.fhir.r4.model.Subscription;
+import org.hl7.fhir.r5.model.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,9 +29,9 @@ import java.util.concurrent.TimeUnit;
 import static ca.uhn.fhir.util.TestUtil.waitForSize;
 import static org.junit.Assert.assertEquals;
 
-public class ExampleServerR4IT {
+public class ExampleServerR5IT {
 
-    private static final org.slf4j.Logger ourLog = org.slf4j.LoggerFactory.getLogger(ExampleServerR4IT.class);
+    private static final org.slf4j.Logger ourLog = org.slf4j.LoggerFactory.getLogger(ExampleServerR5IT.class);
     private static IGenericClient ourClient;
     private static FhirContext ourCtx;
     private static int ourPort;
@@ -40,10 +39,10 @@ public class ExampleServerR4IT {
 
     static {
         HapiProperties.forceReload();
-        HapiProperties.setProperty(HapiProperties.DATASOURCE_URL, "jdbc:h2:mem:dbr4");
-        HapiProperties.setProperty(HapiProperties.FHIR_VERSION, "R4");
+        HapiProperties.setProperty(HapiProperties.DATASOURCE_URL, "jdbc:h2:mem:dbr5");
+        HapiProperties.setProperty(HapiProperties.FHIR_VERSION, "R5");
         HapiProperties.setProperty(HapiProperties.SUBSCRIPTION_WEBSOCKET_ENABLED, "true");
-        ourCtx = FhirContext.forR4();
+        ourCtx = FhirContext.forR5();
     }
 
     @Test
@@ -61,17 +60,26 @@ public class ExampleServerR4IT {
 
     @Test
     public void testWebsocketSubscription() throws Exception {
+
+        /*
+         * Create topic
+         */
+        Topic topic = new Topic();
+        topic.getResourceTrigger().getQueryCriteria().setCurrent("Observation?status=final");
+
         /*
          * Create subscription
          */
         Subscription subscription = new Subscription();
+        subscription.getTopic().setResource(topic);
         subscription.setReason("Monitor new neonatal function (note, age will be determined by the monitor)");
         subscription.setStatus(Subscription.SubscriptionStatus.REQUESTED);
-        subscription.setCriteria("Observation?status=final");
 
         Subscription.SubscriptionChannelComponent channel = new Subscription.SubscriptionChannelComponent();
-        channel.setType(Subscription.SubscriptionChannelType.WEBSOCKET);
-        channel.setPayload("application/json");
+        channel.getType().addCoding()
+                .setSystem("http://terminology.hl7.org/CodeSystem/subscription-channel-type")
+                .setCode("websocket");
+        channel.getPayload().setContentType("application/json");
         subscription.setChannel(channel);
 
         MethodOutcome methodOutcome = ourClient.create().resource(subscription).execute();
@@ -100,7 +108,7 @@ public class ExampleServerR4IT {
          * Create a matching resource
          */
         Observation obs = new Observation();
-        obs.setStatus(Observation.ObservationStatus.FINAL);
+        obs.setStatus(Enumerations.ObservationStatus.FINAL);
         ourClient.create().resource(obs).execute();
 
         // Give some time for the subscription to deliver
@@ -144,8 +152,7 @@ public class ExampleServerR4IT {
 
         ourCtx.getRestfulClientFactory().setServerValidationMode(ServerValidationModeEnum.NEVER);
         ourCtx.getRestfulClientFactory().setSocketTimeout(1200 * 1000);
-        String ourServerBase = HapiProperties.getServerAddress();
-        ourServerBase = "http://localhost:" + ourPort + "/hapi-fhir-jpaserver/fhir/";
+        String ourServerBase = "http://localhost:" + ourPort + "/hapi-fhir-jpaserver/fhir/";
 
         ourClient = ourCtx.newRestfulGenericClient(ourServerBase);
         ourClient.registerInterceptor(new LoggingInterceptor(true));

@@ -1,5 +1,5 @@
 
-package ca.uhn.fhir.jpa.starter;
+package edu.washington.cirg.fhir.jpa.starter;
 
 import ca.uhn.fhir.rest.api.EncodingEnum;
 import org.eclipse.jetty.websocket.api.Session;

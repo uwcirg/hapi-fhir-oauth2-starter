@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter;
+package edu.washington.cirg.fhir.jpa.starter;
 
 import ca.uhn.fhir.jpa.binstore.DatabaseBlobBinaryStorageSvcImpl;
 import ca.uhn.fhir.jpa.binstore.IBinaryStorageSvc;
@@ -51,7 +51,7 @@ public class FhirServerConfigCommon {
   private Boolean emailStartTlsRequired = HapiProperties.getEmailStartTlsRequired();
   private Boolean emailQuitWait = HapiProperties.getEmailQuitWait();
 
-  @Autowired
+  @Autowired(required=false)
   private SubscriptionDeliveryHandlerFactory mySubscriptionDeliveryHandlerFactory;
 
   public FhirServerConfigCommon() {
