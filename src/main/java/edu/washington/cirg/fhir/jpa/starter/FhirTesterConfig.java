@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter;
+package edu.washington.cirg.fhir.jpa.starter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

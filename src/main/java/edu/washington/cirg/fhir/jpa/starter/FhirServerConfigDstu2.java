@@ -1,7 +1,7 @@
-package ca.uhn.fhir.jpa.starter;
+package edu.washington.cirg.fhir.jpa.starter;
 
 import ca.uhn.fhir.context.ConfigurationException;
-import ca.uhn.fhir.jpa.config.BaseJavaConfigR4;
+import ca.uhn.fhir.jpa.config.BaseJavaConfigDstu2;
 import ca.uhn.fhir.jpa.search.DatabaseBackedPagingProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-public class FhirServerConfigR4 extends BaseJavaConfigR4 {
+public class FhirServerConfigDstu2 extends BaseJavaConfigDstu2 {
 
     @Autowired
     private DataSource myDataSource;

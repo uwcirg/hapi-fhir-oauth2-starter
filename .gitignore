@@ -87,6 +87,10 @@ local.properties
 .loadpath
 .recommenders
 
+### Additional Eclipse files
+.classpath
+.project
+
 # External tool builders
 .externalToolBuilders/
 
@@ -158,3 +162,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# settings.xml copied from local dev workflow for tiny-maven-proxy
+settings.xml

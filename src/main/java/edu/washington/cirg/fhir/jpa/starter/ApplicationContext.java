@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.starter;
+package edu.washington.cirg.fhir.jpa.starter;
 
 import ca.uhn.fhir.context.FhirVersionEnum;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
