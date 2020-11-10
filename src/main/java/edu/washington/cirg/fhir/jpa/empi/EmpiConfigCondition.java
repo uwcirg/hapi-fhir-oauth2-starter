@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.empi;
+package edu.washington.cirg.fhir.jpa.empi;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;

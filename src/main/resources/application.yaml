@@ -1,16 +1,21 @@
 spring:
   datasource:
-    url: 'jdbc:h2:file:./target/database/h2'
-    username: sa
-    password: null
-    driverClassName: org.h2.Driver
+    url: jdbc:postgresql://db:5432/hapifhir
+    #'jdbc:h2:file:./target/database/h2'
+    username: hapifhir
+    #sa
+    password: hapifhir
+    #null
+    driverClassName: org.postgresql.Driver
+    #org.h2.Driver
     max-active: 15
   profiles:
     ### This is the FHIR version. Choose between, dstu2, dstu3, r4 or r5
     active: r4
   jpa:
     properties:
-      hibernate.dialect: org.hibernate.dialect.H2Dialect
+      hibernate.dialect: org.hibernate.dialect.PostgreSQL94Dialect
+      #org.hibernate.dialect.H2Dialect
       hibernate.search.model_mapping: ca.uhn.fhir.jpa.search.LuceneSearchMappingFactory
       hibernate.format_sql: false
       hibernate.show_sql: false

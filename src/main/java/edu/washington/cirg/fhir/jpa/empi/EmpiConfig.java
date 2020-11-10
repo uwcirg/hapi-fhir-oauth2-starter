@@ -1,4 +1,4 @@
-package ca.uhn.fhir.jpa.empi;
+package edu.washington.cirg.fhir.jpa.empi;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.empi.api.IEmpiSettings;
@@ -6,7 +6,7 @@ import ca.uhn.fhir.empi.rules.config.EmpiRuleValidator;
 import ca.uhn.fhir.empi.rules.config.EmpiSettings;
 import ca.uhn.fhir.jpa.empi.config.EmpiConsumerConfig;
 import ca.uhn.fhir.jpa.empi.config.EmpiSubmitterConfig;
-import ca.uhn.fhir.jpa.starter.AppProperties;
+import edu.washington.cirg.fhir.jpa.starter.AppProperties;
 import ca.uhn.fhir.rest.server.util.ISearchParamRetriever;
 import com.google.common.base.Charsets;
 import org.apache.commons.io.IOUtils;

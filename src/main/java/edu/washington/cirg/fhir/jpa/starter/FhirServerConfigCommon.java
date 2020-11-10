@@ -106,6 +106,8 @@ public class FhirServerConfigCommon {
 
     retVal.setFilterParameterEnabled(appProperties.getFilter_search_enabled());
 
+    retVal.setDeleteEnabled(false);
+    
     return retVal;
   }
 
@@ -117,9 +119,6 @@ public class FhirServerConfigCommon {
     if (appProperties.getPartitioning() != null) {
       retVal.setPartitioningEnabled(true);
     }
-
-    // Allow numeric IDs
-    retVal.setResourceClientIdStrategy(DaoConfig.ClientIdStrategyEnum.ANY);
 
     return retVal;
   }
@@ -143,6 +142,8 @@ public class FhirServerConfigCommon {
       modelConfig.addSupportedSubscriptionType(Subscription.SubscriptionChannelType.EMAIL);
     }
 
+    modelConfig.setSuppressStringIndexingInTokens(true);
+    
     return modelConfig;
   }
 
