@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t hapi-fhir/hapi-fhir-jpaserver-starter .
+docker build --network host -t uwcirg/hapi-fhir-oauth2-starter .
 

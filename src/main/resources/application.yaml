@@ -28,6 +28,8 @@ spring:
       hibernate.search.default.directory_provider: filesystem
       hibernate.search.default.indexBase: target/lucenefiles
       hibernate.search.lucene_version: LUCENE_CURRENT
+      hibernate.search.autoregister_listeners: false
+      hibernate.search.indexing_strategy: manual
 
   batch:
     job:
@@ -89,8 +91,8 @@ hapi:
 #      name: fhirtest.access
 #    max_binary_size: 104857600
 #    max_page_size: 200
-#    retain_cached_searches_mins: 60
-#    reuse_cached_search_results_millis: 60000
+    retain_cached_searches_mins: 0
+    reuse_cached_search_results_millis: 0
     tester:
       -
           id: home
