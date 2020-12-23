@@ -49,7 +49,7 @@ public class AppProperties {
   private String server_address = null;
   private EncodingEnum default_encoding = EncodingEnum.JSON;
   private FhirVersionEnum fhir_version = FhirVersionEnum.R4;
-  private ClientIdStrategyEnum client_id_strategy = ClientIdStrategyEnum.ALPHANUMERIC;
+  private ClientIdStrategyEnum client_id_strategy = ClientIdStrategyEnum.ANY;
   private List<String> supported_resource_types = new ArrayList<>();
   private List<Bundle.BundleType> allowed_bundle_types = null;
 
