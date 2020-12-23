@@ -3,6 +3,7 @@ package edu.washington.cirg.fhir.jpa.starter;
 import ca.uhn.fhir.jpa.api.config.DaoConfig;
 import ca.uhn.fhir.jpa.binstore.DatabaseBlobBinaryStorageSvcImpl;
 import ca.uhn.fhir.jpa.binstore.IBinaryStorageSvc;
+import ca.uhn.fhir.jpa.config.HibernateDialectProvider;
 import ca.uhn.fhir.jpa.model.config.PartitionSettings;
 import ca.uhn.fhir.jpa.model.entity.ModelConfig;
 import ca.uhn.fhir.jpa.subscription.channel.subscription.SubscriptionDeliveryHandlerFactory;
@@ -10,9 +11,11 @@ import ca.uhn.fhir.jpa.subscription.match.deliver.email.IEmailSender;
 import ca.uhn.fhir.jpa.subscription.match.deliver.email.JavaMailEmailSender;
 import com.google.common.base.Strings;
 import org.hl7.fhir.dstu2.model.Subscription;
+import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Optional;
@@ -109,8 +112,15 @@ public class FhirServerConfigCommon {
     retVal.setDeleteEnabled(false);
 
     retVal.setResourceClientIdStrategy(DaoConfig.ClientIdStrategyEnum.ANY);
+    retVal.setResourceServerIdStrategy(DaoConfig.IdStrategyEnum.UUID);
+    retVal.setAllowInlineMatchUrlReferences(true);
     
     return retVal;
+  }
+
+  @Bean
+  public YamlPropertySourceLoader yamlPropertySourceLoader() {
+    return new YamlPropertySourceLoader();
   }
 
   @Bean
@@ -125,6 +135,12 @@ public class FhirServerConfigCommon {
     return retVal;
   }
 
+
+  @Primary
+  @Bean
+  public HibernateDialectProvider jpaStarterDialectProvider() {
+    return new JpaHibernateDialectProvider();
+  }
 
   @Bean
   public ModelConfig modelConfig(AppProperties appProperties) {
