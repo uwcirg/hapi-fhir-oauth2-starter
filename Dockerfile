@@ -26,4 +26,6 @@ COPY --from=build-hapi /tmp/target/*.war /usr/local/tomcat/webapps/
 #USER jetty:jetty
 #ENTRYPOINT ["/var/lib/jetty/debug-entrypoint.sh"]
 
+RUN sed -i -E "{N; s/(<Connector.*\"8443\")(\/>)/\1 relaxedPathChars='|' relaxedQueryChars='|' \2/; D}" conf/server.xml
+
 CMD ["catalina.sh", "run"]

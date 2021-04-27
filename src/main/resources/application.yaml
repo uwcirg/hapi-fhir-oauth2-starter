@@ -37,7 +37,7 @@ spring:
 
 hapi:
   fhir:
-    defer_indexing_for_codesystems_of_size: 101
+    defer_indexing_for_codesystems_of_size: 6000
 #    implementationguides:
 #      -
 #        url: https://build.fhir.org/ig/hl7dk/dk-medcom/branches/corrections/package.tgz
