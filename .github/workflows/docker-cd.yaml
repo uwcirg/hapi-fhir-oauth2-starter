@@ -9,7 +9,7 @@ jobs:
 
     - name: Publish to Dockerhub registry
       # todo: pin to hash
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: uwcirg/hapi-fhir-oauth2-starter
         username: ${{ secrets.DOCKER_USERNAME }}
@@ -18,7 +18,7 @@ jobs:
 
     - name: Publish to GitHub docker registry
       # todo: pin to hash
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: uwcirg/hapi-fhir-oauth2-starter/hapi-fhir-jpa
         # https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
